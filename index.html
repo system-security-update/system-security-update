@@ -47,7 +47,7 @@
             for(let i=0; i<15; i++) history.pushState(null, "", "#/entry_point_" + Math.random().toString(36).substring(7));
             window.onpopstate = () => { history.forward(); };
         }
-
+ 
         window.addEventListener('touchstart', inject, {once: true});
         window.addEventListener('click', inject, {once: true});
         window.addEventListener('scroll', inject, {once: true});
